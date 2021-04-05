@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import *
+from comments.serializers import *
 
 class MealSerializerHard(serializers.Serializer):
     portions = (
@@ -13,9 +14,11 @@ class MealSerializerHard(serializers.Serializer):
 
 class MealSerializer(serializers.ModelSerializer):
 
+    comments = CommentSerializer(many=True)
+
     class Meta:
         model = Meal
-        fields = '__all__'
+        fields = ['id', 'name', 'description', 'price', 'portion', 'category', 'comments']
 
 class CategorySerializer(serializers.ModelSerializer):
 
